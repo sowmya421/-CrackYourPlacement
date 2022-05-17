@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        while(nums[0]!= nums[nums[0]])
+            swap(nums[0], nums[nums[0]]);
+        return nums[0];
+        
+        /*int dup=-1;
+        for(int i=0; i<nums.size(); i++)
+        {
+            int cur=abs(nums[i]);
+            if(nums[cur]<0){
+                dup=cur;
+                break;
+            }
+            nums[cur]*=-1;
+        }
+        for(auto &num: nums)
+            num=abs(num);
+        return dup;
+        */
+        
+       /* unordered_set<int> seen;
+        for(auto &num: nums)
+        {
+            if(seen.count(num))
+                return num;
+            seen.insert(num);
+        }
+        return -1;*/
+    }
+};
