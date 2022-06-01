@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxScore(vector<int>& c, int k) {
+        int n=c.size();
+        int scoreL=0;
+        for(int i=0; i<k; i++)
+            scoreL+=c[i];
+        int maxscore=scoreL, curscore=scoreL, j=n-1;
+        for(int i=k-1; i>=0; i--)
+        {
+            int scoreR=c[j];
+            curscore+=scoreR-c[i];
+            maxscore=max(curscore, maxscore);
+            j--;
+        }
+        return maxscore;
+    }
+};
