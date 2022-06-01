@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>>ans;
+        //handle edge case
+        if(nums.size()<4) return ans;
+        //sort it since index doesn't matter
+        sort(nums.begin(), nums.end());
+        for(int i=0;i<nums.size()-3;i++){
+            for(int j=i+1;j<nums.size()-2 ;j++){
+                //check duplicates
+                if((i==0 || (i>0 && nums[i]!=nums[i-1])  )&& (j==i+1 || (j>i+1 && nums[j]!=nums[j-1])) ){
+                    int lo=j+1 , hi= nums.size()-1 , sum=target-(nums[i]+nums[j]);
+                    while(lo<hi){
+                        //search for remaining sum
+                        if(nums[lo]+nums[hi]==sum){
+                            ans.push_back({nums[i], nums[j],nums[lo], nums[hi]});
+                            //is it duplicates with another 2 number moving ahead
+                            while(lo<hi && nums[lo]==nums[lo+1])lo++;
+                            while(lo<hi && nums[hi]==nums[hi-1])hi--;
+                            lo++;hi--;
+                        }else if(nums[lo]+nums[hi]>sum) hi--;
+                        else lo++;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
