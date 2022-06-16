@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        size_t m=board.size();
+        size_t n=board[0].size();
+        for(size_t i=0; i<m; i++)
+        {
+            for(size_t j=0; j<n; j++)
+            {
+                if(helper(board, word, m, n, i,j, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+    bool helper(vector<vector<char>>&board, const string& word, size_t m, size_t n, size_t i, size_t j, size_t idx)
+    {
+        if(i<0 || j<0 || i>=m || j>=n || board[i][j]!=word[idx])
+        {
+            return false;
+        }
+        if(idx==word.size()-1)
+        {
+            return true;
+        }
+        bool res=false;
+        ++idx;
+        char temp=board[i][j];
+        board[i][j]='*';
+        res|=helper(board, word, m, n, i+1,j, idx);
+        res|=helper(board, word, m, n, i-1,j, idx);
+        res|=helper(board, word, m, n, i,j+1, idx);
+        res|=helper(board, word, m, n, i,j-1, idx);
+        board[i][j]=temp;
+        return res;
+    }
+};
