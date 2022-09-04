@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int M=1000000007;
+    long long dp[3010][1001];
+    int solve(int startPos, int endPos, int k){
+        long long ans=0;
+        if(startPos==endPos && k==0){
+            return 1;
+        }
+        if(startPos!=endPos && k==0){
+            return 0;
+        }
+        if(dp[startPos+1000][k]!=-1){
+            return dp[startPos+1000][k];
+        }
+        ans=ans+solve(startPos+1, endPos, k-1);
+        ans=ans+solve(startPos-1, endPos, k-1);
+        return dp[startPos+1000][k]=ans%M;
+        
+    }
+    int numberOfWays(int startPos, int endPos, int k) {
+        for(int i=0; i<=3001; i++){
+            for(int j=1; j<=k; j++){
+                dp[i][j]=-1;
+            }
+        }
+        long long count;
+        count=solve(startPos, endPos, k);
+        return count%M;
+    }
+};
